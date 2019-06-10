@@ -1,0 +1,14 @@
+
+N=input()
+a = []
+for i in xrange(N):
+    a.append([input(),i])
+
+c = sorted(a)
+i = 0
+
+while i != len(c):
+    
+
+#for (num,li) in enumerate(c):
+    
