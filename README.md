@@ -15,3 +15,6 @@ def bfs():
       que.append(next_point, next_state)
       visited(next_point)
 ```
+
+- 最後の行でvisitする。(詳しくはわからない)
+- dequeに突っ込むstateに情報を持たせるようにする。
