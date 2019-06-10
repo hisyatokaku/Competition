@@ -1,6 +1,6 @@
 # テンプレ
 
-
+### BFS
 用意する変数：queue, visited
 ```
 def bfs():
