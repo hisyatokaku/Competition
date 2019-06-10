@@ -18,3 +18,9 @@ def bfs():
 
 - 最後の行でvisitする。(詳しくはわからない)
 - dequeに突っ込むstateに情報を持たせるようにする。
+
+
+# 環境
+
+テンプレ作成方法
+https://stackoverflow.com/questions/55469524/how-to-write-vim-function-to-paste-a-template-text-into-current-file
