@@ -5,6 +5,38 @@
 保持する値：始点の最大値, 終点の最小値
 
 
+### 文字列探索
+- naiveな部分文字列マッチ
+```
+S = 'aetonkreotonkouesr'
+T = 'tonkou'
+```
+のとき、
+
+```
+S = 'aetonkreotonkouesr'
+              ^
+            st_ix
+
+T = 'tonkou'
+     ^
+     j ->
+```
+のようにして、
+- 開始位置(st_ix)をforloopでscan
+- 二つの文字列をst_ix, jで並行scan
+する。
+
+このとき、st_ixはSをscanするための**オフセット**としてとらえるとわかりやすい。
+
+```
+for st_ix in range(len(S)):
+  for j in range(len(T)):
+    check(S[st_ix + j] == T[j])
+```
+
+
+
 ### bit全探索
 n桁(0ビットからn-1ビットまで)を探索したい
 ```
