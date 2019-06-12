@@ -91,6 +91,8 @@ def bfs():
 
 
 # 環境
-
 テンプレ作成方法
 https://stackoverflow.com/questions/55469524/how-to-write-vim-function-to-paste-a-template-text-into-current-file
+
+# 参考
+DP[http://home.wakatabe.com/ryo/wiki/index.php?%E3%82%A2%E3%83%AB%E3%82%B4%E3%83%AA%E3%82%BA%E3%83%A0#mb392f04]
