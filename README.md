@@ -127,9 +127,22 @@ def recursive_bfs(row, col):
   return
 
 recursive_bfs(0, 0)
-
 ```
 
+# Python Tips
+```
+def f():
+  ans = 0
+  def g():
+    ans = 111
+  return ans
+f()
+# output: 0
+ネストされた関数から外側の関数の変数を変更したいときは、
+```
+nonlocal ans
+'''
+をつける。
 
 # 環境
 テンプレ作成方法
