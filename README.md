@@ -153,12 +153,22 @@ a11, ..., a1W
 ...
 aH1, ..., aHW
 ```
-コード
+コード1
 ```
 cin >> H >> W;
 char** S = new char*[H];
 rep(i, 0, H) S[i] = new char[W];
 rep(j, 0, H) cin >> S[j]
+```
+コード2
+```
+char a[10000][10000];
+cin >> H >> W;
+rep(i, 0, H){
+  rep(j, 0, W){
+    cin >> S[i][j];
+  }
+}
 ```
 
 
