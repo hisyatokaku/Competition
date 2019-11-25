@@ -144,6 +144,24 @@ nonlocal ans
 '''
 をつける。
 
+# cpp標準入力
+
+入力：行列(char)
+```
+H, W
+a11, ..., a1W
+...
+aH1, ..., aHW
+```
+コード
+```
+cin >> H >> W;
+char** S = new char*[H];
+rep(i, 0, H) S[i] = new char[W];
+rep(j, 0, H) cin >> S[j]
+```
+
+
 # 環境
 テンプレ作成方法
 https://stackoverflow.com/questions/55469524/how-to-write-vim-function-to-paste-a-template-text-into-current-file
