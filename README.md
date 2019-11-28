@@ -171,6 +171,19 @@ rep(i, 0, H){
 }
 ```
 
+# for文
+DPの問題で、diagonalにfor文を回したい時がある。
+参考: https://www.geeksforgeeks.org/zigzag-or-diagonal-traversal-of-matrix/
+オフセットkを決めて、行または列のインデックスをloopすればよい。
+```
+for(int k=0; k<N; k++){
+  for(int row=0; row<N; row++){
+    int col = row + k;
+    if(col<N) ...
+  }
+}
+```
+
 
 # 環境
 テンプレ作成方法
