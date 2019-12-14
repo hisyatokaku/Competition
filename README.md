@@ -35,7 +35,7 @@ for st_ix in range(len(S)):
 ```
 
 # DP
-ナップザック (要素がN個、重さがWまでの制限を守った最大価値を求める。)
+## ナップザック (要素がN個、重さがWまでの制限を守った最大価値を求める。)
 
 パターン
 1. dp[i+1][j]: **indexが0以上i以下の要素を使った時の**、重さjを超えない最大価値
@@ -61,6 +61,48 @@ for-loopは、(dp[i+1]を使った更新式で書くなら)以下の範囲で回
 0 <= j <= W
 ```
 
+## bitDP
+パターン
+1. 集合をビットで表し、各集合の遷移を考える。
+条件に合う参加者を[0010011]のインデックスとして表すとすると、
+[0010011]は[0010001], [0010010], [0000011]の状態に一人足した状態として考えられるので、
+`
+dp[0010011] = dp[0010001] * (...) + dp[0010010] * (...) + dp[0000011] * (...)
+`
+として良い。
+左辺のインデックスは右辺の全てのインデックスより大きいため、forループは小から大の方向へ回せば良い。
+
+```
+# N: 参加者
+dp[1<<N] 
+for bit in range(1 << N):
+  for j in range(N):
+    mask = 1 << j 
+    if mask & bit == 0:
+      continue
+    sub_index = i ^ mask
+    dp[bit] += dp[sub_index]
+```
+上のコードで、例えばbitが0010011の時、0010001, 0010010, 0000011を作りたいとする。
+jに関するforループは、右の桁から一つずつ, bitのj桁目が1かどうかを調べ、1だったら、ひっくり返すということをやっている。
+
+参考:[dpContest/O.cpp](https://github.com/hisyatokaku/Competition/blob/master/dpContest/O.cpp)
+
+## 桁dp
+dp[i][j][k]: 左からi桁目まで見終わっており、最大値以下であることが確定している時はj=1, そうでないときはj=0, kは自由にカスタムできる条件式
+
+```
+# S: ターゲットとなる文字列。めちゃくちゃ長いのでstrにすることが多い
+for i in len(S):
+  D = S[i] 
+  for j in [0, 1]:
+    for k in K:
+      for d in range(j ? 9 : D): # j=1なら0から9まで好きな数字を試せるが、j=0なら0からDまで。
+        newK = (...)
+        dp[i+1][j || (d < D - '0')][newK] += dp[i][j][k]
+```  
+
+参考:[dpContest/S.cpp](https://github.com/hisyatokaku/Competition/blob/master/dpContest/S.cpp)
 
 # bit全探索
 n桁(0ビットからn-1ビットまで)を探索したい
