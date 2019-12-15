@@ -4,6 +4,51 @@
 保持する値：始点の最大値, 終点の最小値
 
 
+## 二分探索の境界条件
+### パターン1. ng - ok > 1 条件を満たす境界を求める問題
+TL;DR **ng - ok > 1**
+
+例：1, 3, 4, 9, 11, ..., 107のうち、Xという条件を満たす最大の数を求める問題
+
+[わかりやすい記事](http://pekoon.hatenablog.com/entry/2015/02/22/221806)
+
+[わかりやすいqiita](https://qiita.com/drken/items/97e37dd6143e33a64c8c)
+
+ok, ngとなる境界を狭めていくイメージ。左側は必ずokの値、右側は必ずngの値がくるようにする。
+(配列ならば-1とlen()を使う)
+```python
+ok = 0
+ng = N + 1
+while ng - ok > 1: # important
+  m = ok + (ng - ok)/2
+  if not satisfy(m):
+    ng = m
+  else:
+    ok = m
+return ok
+```
+
+### パターン2. 与えられた値(ない場合もある)をピンポイントで見つける問題
+TL; DR **l <= r**
+
+例：1, 2, 3, ..., 10から5が存在するかどうか確認する問題
+```python
+# a: [1, 2, 3, ...]
+l = 0
+r = len(a) - 1
+while l <= r: # important
+  m = l + (r-l)/2
+  if m == X:
+    return True
+  if m < X:
+    r = m - 1
+  if m > X:
+    l = m + 1
+return False
+```
+
+**l <= r**にしないと、lとrが同じになり答えを指しているときに、mを計算するためのループが回らなくなってしまう。
+
 # 文字列探索
 - naiveな部分文字列マッチ
 ```
