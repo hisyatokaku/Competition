@@ -25,7 +25,8 @@ for j in range(N-1)[::-1]:
 
 ## nCm mod p
 参考：http://drken1215.hatenablog.com/entry/2018/06/08/210000
-```
+
+```python
 fac = [-1] * (10**7+1)
 finv = [-1] * (10**7+1)
 inv = [-1] * (10**7+1)
