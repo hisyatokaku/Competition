@@ -23,6 +23,31 @@ for j in range(N-1)[::-1]:
 ```
 
 
+## nCm mod p
+参考：http://drken1215.hatenablog.com/entry/2018/06/08/210000
+```
+fac = [-1] * (10**7+1)
+finv = [-1] * (10**7+1)
+inv = [-1] * (10**7+1)
+
+fac[0] = fac[1] = 1
+finv[0] = finv[1] = 1
+inv[1] = 1
+
+def initNCMMod(limit):
+    for i in range(2, limit):
+        fac[i] = fac[i-1] * i % mod
+        inv[i] = mod - inv[mod%i] * (mod // i) % mod
+        finv[i] = finv[i-1] * inv[i] % mod
+
+def NCMMod(n, k):
+    if n < k:
+        return 0
+    if (n < 0 or k < 0):
+        return 0
+    return fac[n] * (finv[k] * finv[n-k] % mod) % mod
+```
+
 ## 二分探索の境界条件
 ### パターン1. ng - ok > 1 条件を満たす境界を求める問題
 TL;DR **ng - ok > 1**
