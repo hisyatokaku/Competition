@@ -22,6 +22,41 @@ for j in range(N-1)[::-1]:
   right[j] = f(right[j+1], a[j]) # [0, N-1), 0からN-2まで
 ```
 
+## 素数チェック
+エラトステネスの篩。n以下の全ての素数を列挙するには、2からsqrt(n)まで、自分より大きい倍数にFalseをマークして表を埋めていく。
+
+O(nlog(log(n)))でできる。
+
+```python
+prime = [True] * (n + 1)
+prime[1] = False
+max_range = int(math.sqrt(n)) + 1
+
+for i in range(2, n + 1):
+    if not prime[i]:
+        continue
+    if prime[i]:
+        num = i + i
+        while num < max_range:
+            prime[num] = False
+            num += i
+```
+
+## 素因数分解
+nを素因数分解するとき、2からsqrt(n)まで試し割りすることを繰り返す。
+
+```python
+def integer_factorization(n):
+    prime_count = collections.Counter()
+    for i in range(2, int(math.sqrt(n)) + 2):
+        while n % i == 0:
+            n //= i
+            prime_count[i] += 1
+    if n > 1:
+        prime_count[n] += 1
+    return prime_count
+```
+
 
 ## nCm mod p
 参考：http://drken1215.hatenablog.com/entry/2018/06/08/210000
