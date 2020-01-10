@@ -241,6 +241,48 @@ iという数字に対し、右から数えてjビット目のビットを知り
 (i >> j) & 1
 ```
 
+# Union-Find Tree
+実装が必要な関数は以下。
+
+- unite(v1, v2)
+- root(v)
+- sameRoot(v)
+
+亜種として各集合のサイズを返す関数が必要な時もある。
+
+```
+class UnionFind():
+    def __init__(self, n):
+        self.par = [-1 for _ in range(n)]
+        self.sizeDict = { i: 1 for i in range(n)}
+
+    def unite(self, v1, v2):
+        '''
+        connect v2 to v1.
+
+        parent: v1
+        child: v2
+        '''
+        r1 = self.root(v1)
+        r2 = self.root(v2)
+        if r1 == r2:
+            return
+        self.par[r2] = r1
+        self.sizeDict[r1] += self.sizeDict[r2]
+
+    def root(self, v):
+        if self.par[v] == -1:
+            return v
+        self.par[v] = self.root(self.par[v])
+        return self.par[v]
+
+    def sameRoot(self, v1, v2):
+        return self.root(v1) == self.root(v2)
+
+    def size(self, v):
+        return self.sizeDict[self.root(v)]
+```
+
 # BFS
 用意する変数：que, visited
 ```
