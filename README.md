@@ -57,6 +57,21 @@ def integer_factorization(n):
     return prime_count
 ```
 
+約数全列挙
+1からmath.sqrt(N)までループして割り切れるかどうか調べる。
+```python
+def yakusu(n):
+  yakusu = []
+  for i in range(1, int(math.sqrt(n))+1):
+    if n % i == 0:
+      yakusu.append(i)
+      if n // i != i:
+        yakusu.append(N//i)
+  return yakusu
+
+```
+
+
 
 ## nCm mod p
 参考：http://drken1215.hatenablog.com/entry/2018/06/08/210000
