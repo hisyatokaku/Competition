@@ -30,14 +30,14 @@ O(nlog(log(n)))でできる。
 ```python
 prime = [True] * (n + 1)
 prime[1] = False
-max_range = int(math.sqrt(n)) + 1
+# max_range = int(math.sqrt(n)) + 1
 
 for i in range(2, n + 1):
     if not prime[i]:
         continue
     if prime[i]:
         num = i + i
-        while num < max_range:
+        while num < n:
             prime[num] = False
             num += i
 ```
