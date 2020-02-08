@@ -417,3 +417,9 @@ https://stackoverflow.com/questions/55469524/how-to-write-vim-function-to-paste-
 
 # 参考
 DP: http://home.wakatabe.com/ryo/wiki/index.php?%E3%82%A2%E3%83%AB%E3%82%B4%E3%83%AA%E3%82%BA%E3%83%A0#mb392f04
+
+# Pypy or Python?
+Pypyが遅いもの
+- 文字列結合
+- ソート
+
