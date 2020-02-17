@@ -247,6 +247,19 @@ for i in len(S):
 
 参考:[dpContest/S.cpp](https://github.com/hisyatokaku/Competition/blob/master/dpContest/S.cpp)
 
+# 尺取り法
+終端をfor文で回すと良いかも(使ったサンプル数1)
+```
+for en in range(N):
+  do_something()
+  if not satisfy:
+     do_something(st)
+   else:
+     ans += 1
+```
+
+# 累積和
+
 # bit全探索
 n桁(0ビットからn-1ビットまで)を探索したい
 ```
