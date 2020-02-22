@@ -45,6 +45,20 @@ for i in range(2, n + 1):
             num += i
 ```
 
+## 繰り返し二乗法
+TL;DR: 指数nを二進数に変換し、立っているビットがあったらxをresに積み重ねていく。xはつねにビットの位置に対応したべき乗になっているようにする。
+
+```python
+def pow(x, n):
+  ans = 1
+  while(n > 0):
+    if(bin(n & 1) == bin(1)):
+      ans = ans*x
+    x = x*x
+    n = n >> 1
+  return ans
+```
+
 ## 素因数分解
 nを素因数分解するとき、2からsqrt(n)まで試し割りすることを繰り返す。
 
