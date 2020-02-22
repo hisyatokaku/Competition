@@ -74,19 +74,27 @@ def yakusu(n):
 
 ```
 
-
-
 ## nCm mod p
 参考：http://drken1215.hatenablog.com/entry/2018/06/08/210000
 
+原理：
+- a*b*c mod p = (a*b mod p) * c mod p (足し算引き算掛け算は一つずつ重ねて良い)
+- 割り算ではこれが成り立たないので逆元を考える必要がある。フェルマーの小定理より逆元はa^(p-2)である。
+- nCk mod p = n! * (k!)^(-1) * ((n-k)!)^(-1) mod p という感じで、三つの掛け算に分解できる。逆元さえ求められればよい。
+```
+fac[i]: i!
+inv[i]: iの逆元
+finv[i]: i!の逆元
+```
+
 ```python
 fac = [-1] * (10**7+1)
-finv = [-1] * (10**7+1)
 inv = [-1] * (10**7+1)
+finv = [-1] * (10**7+1)
 
 fac[0] = fac[1] = 1
-finv[0] = finv[1] = 1
 inv[1] = 1
+finv[0] = finv[1] = 1
 
 def initNCMMod(limit):
     for i in range(2, limit):
