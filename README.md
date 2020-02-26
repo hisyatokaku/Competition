@@ -282,6 +282,36 @@ for en in range(N):
 
 # 累積和
 
+### 1次元
+
+```
+配列の[left, right)に関する和: s[right] - s[left]
+```
+
+```python
+a = [1,2,3]
+s = [0, 1, 3, 6]
+for i in range(len(a)):
+  s[i+1] = s[i] + a[i]
+```
+
+### 2次元
+```
+G = [0...C) × [0...R)
+s2d = [[0 for _ in range(R+1)] for __ in range(C+1)]
+for r in range(R):
+  for c in range(C):
+    s2d[r+1][c+1] = s2d[r][c+1] + s2d[r+1][c] - s2d[r][c] + G[r][c]
+
+def query_cs2d(s, x1, x2, y1, y2):
+  # [x1, x2) × [y1, y2)
+  if x2 < x1:
+    x1, x2 = x2, x1
+  if y2 < y1:
+    y1, y2 = y2, y1
+  return s[x2][y2] - s[x1][y2] - s[x2][y1] + s[x1][y1]  
+```
+
 # bit全探索
 n桁(0ビットからn-1ビットまで)を探索したい
 ```
