@@ -366,60 +366,6 @@ class UnionFind():
         return self.sizeDict[self.root(v)]
 ```
 
-# BFS
-用意する変数：que, visited
-```
-def bfs():
-  que = deque()
-  que.append((position, state))
-  while que:
-    position, state = q.popleft()
-    check_goal(position)
-    for next_point in movable(position):
-      if not valid(next_point):
-        continue
-      que.append(next_point, next_state)
-      visited(next_point)
-```
-
-- 最後の行でvisitする。(詳しくはわからない)
-- dequeに突っ込むstateに情報を持たせるようにする。
-
-# DFS
-## iterative
-用意する変数：stack, visited
-```
-def bfs():
-  s = deque()
-  s.append((position, state))
-  while s:
-    position, state = s.pop()
-    check_goal(position)
-    for next_point in movable(position):
-      if not valid(next_point):
-        continue
-      s.append((next_point, next_state))
-      visited(next_point)
-```
-
-## recursive
-用意する変数：グローバルvisited
-```
-visited = [[...]]
-
-def recursive_bfs(row, col):
-  visited[row][col] = True
-  
-  for next_point in movable((row, col)):
-    if not valid(next_point):
-      continue
-    if already_visited(next_point):
-      continue
-    recursive_bfs(*next_point)
-  return
-
-recursive_bfs(0, 0)
-```
 
 # Python Tips
 ```
@@ -462,6 +408,89 @@ rep(i, 0, H){
   }
 }
 ```
+
+# グラフ
+
+## Dijkstra
+負の閉路なしで使える
+
+```python
+unvisited = set(V)
+d[start_v] = 0
+while unvisited:
+  next_v = find_min_v_from_unvisited(d)
+  unvisited.pop(next_v)
+  relax(start_v, next_v, d) # 最短距離を更新する
+```
+
+## Bellman-Ford
+負の閉路あっても使える
+
+## Warshall–Floyd
+全頂点間の最短距離がわかる。
+O(V^3)なので V <= 200ぐらいで使える。
+```python
+for k in range(V):
+  for fr_v in range(V):
+    for to_v in range(V):
+      d[fr_v][to_v] = min(d[fr_v][to_v], d[fr_v][k] + dr[k][to_v])
+```
+
+## BFS
+用意する変数：que, visited
+```
+def bfs():
+  que = deque()
+  que.append((position, state))
+  while que:
+    position, state = q.popleft()
+    check_goal(position)
+    for next_point in movable(position):
+      if not valid(next_point):
+        continue
+      que.append(next_point, next_state)
+      visited(next_point)
+```
+
+- 最後の行でvisitする。(詳しくはわからない)
+- dequeに突っ込むstateに情報を持たせるようにする。
+
+## DFS
+### iterative
+用意する変数：stack, visited
+```
+def bfs():
+  s = deque()
+  s.append((position, state))
+  while s:
+    position, state = s.pop()
+    check_goal(position)
+    for next_point in movable(position):
+      if not valid(next_point):
+        continue
+      s.append((next_point, next_state))
+      visited(next_point)
+```
+
+### recursive
+用意する変数：グローバルvisited
+```
+visited = [[...]]
+
+def recursive_bfs(row, col):
+  visited[row][col] = True
+  
+  for next_point in movable((row, col)):
+    if not valid(next_point):
+      continue
+    if already_visited(next_point):
+      continue
+    recursive_bfs(*next_point)
+  return
+
+recursive_bfs(0, 0)
+```
+
 
 # for文
 DPの問題で、diagonalにfor文を回したい時がある。
