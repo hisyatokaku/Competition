@@ -324,6 +324,17 @@ iという数字に対し、右から数えてjビット目のビットを知り
 (i >> j) & 1
 ```
 
+# Priority-Queue
+Min-heap用の関数である。
+- heaqp.heappush(b)
+- heapq.heappop()
+
+Max-heapの時は、
+- heapq.heappush(-b)
+- -heapq.heappop()
+
+とする。
+
 # Union-Find Tree
 実装が必要な関数は以下。
 
