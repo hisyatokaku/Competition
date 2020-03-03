@@ -544,10 +544,11 @@ while unvisited:
 全頂点間の最短距離がわかる。
 O(V^3)なので V <= 200ぐらいで使える。
 ```python
+# kijの添字を間違うと死
 for k in range(V):
-  for fr_v in range(V):
-    for to_v in range(V):
-      d[fr_v][to_v] = min(d[fr_v][to_v], d[fr_v][k] + dr[k][to_v])
+  for i in range(V):
+    for j in range(V):
+      d[i][j] = min(d[i][j], d[i][k] + dr[k][j])
 ```
 
 ## BFS
