@@ -1,0 +1,46 @@
+import math,string,itertools,fractions,heapq,collections,re,array,bisect,sys,random,time,copy,functools
+from collections import deque
+
+sys.setrecursionlimit(10**7)
+inf = 10**20
+mod = 10**9 + 7
+
+DR = [1, -1, 0, 0]
+DC = [0, 0, 1, -1]
+
+def LI(): return [int(x) for x in sys.stdin.readline().split()]
+def LI_(): return [int(x)-1 for x in sys.stdin.readline().split()]
+def LF(): return [float(x) for x in sys.stdin.readline().split()]
+def LS(): return sys.stdin.readline().split()
+def I(): return int(sys.stdin.readline())
+def F(): return float(sys.stdin.readline())
+def S(): return input()
+
+def hitofude(H, W):
+    for row in range(H):
+        if row % 2 == 0:
+            for col in range(H):
+                yield (row, col)
+        else:
+            for col in range(H)[::-1]:
+                yield (row, col)
+
+
+def main():
+    H, W = LI()
+    A = []
+    for _ in range(H):
+        a = LI()
+        A.append(a)
+    cur = hitofude(H, W)[:-1]
+    nex = hitofude(H, W)[1:]
+    for cur_r, cur_c, nex_r, nex_c in zip(cur, nex):
+        if A[cur_r][cur_c] % 2 == 0:
+            pass
+        else:
+            A[cur_r][cur_c] -= 1
+            A[nex_r][nex_c] += 1
+
+
+main()
+

@@ -1,55 +1,56 @@
-import math
+import math,string,itertools,fractions,heapq,collections,re,array,bisect,sys,random,time,copy,functools
+from collections import deque
 
-D, G = map(int, input().split())
-d_s, g_s = [], []
-for _ in range(D):
-    d,g = map(int, input().split())
-    d_s.append(d)
-    g_s.append(g)
+import pdb
 
-def solve(cur_G, cur_num):
-    global d_s
-    global g_s
-    possible = []
+sys.setrecursionlimit(10**7)
+inf = 10**20
+mod = 10**9 + 7
 
-    new_p = [(ix+1)*100 + g/d for (ix, (d,g)) in enumerate(zip(d_s, g_s))]
-    max_p = max(new_p)
-    max_p_ix = new_p.index(max_p)
+DR = [1, -1, 0, 0]
+DC = [0, 0, 1, -1]
 
-    if (max_p_ix+1) * 100 * d_s[max_p_ix] + g_s[max_p_ix]< cur_G:
-        cur_G -= d_s[max_p_ix] * (max_p_ix+1) * 100 + g_s[max_p_ix]
-        new_num = cur_num + g_s[max_p_ix]
-        return solve(cur_G, cur_num + new_num)
+def LI(): return [int(x) for x in sys.stdin.readline().split()]
+def LI_(): return [int(x)-1 for x in sys.stdin.readline().split()]
+def LF(): return [float(x) for x in sys.stdin.readline().split()]
+def LS(): return sys.stdin.readline().split()
+def I(): return int(sys.stdin.readline())
+def F(): return float(sys.stdin.readline())
+def S(): return input()
+     
+def main():
+    D, G = LI()
+    p, c = [], []
+    for _ in range(D):
+        _p, _c = LI()
+        p.append(_p)
+        c.append(_c)
 
-    else:
-        while cur_G > 0:
-            d, g = d_s[-1], g_s[-1]
-            cur_G -= d
-            cur_num += 1
-            d_s[-1] -= 1
-            if d_s[-1] == 0:
-                cur_G -= g
-                d_s = d_s[:-1]
-                g_s = g_s[:-1]
-    return cur_num
-        
-    """
-    for ix, (d, g) in enumerate(zip(d_s, g_s)):
-        m = d*(ix+1)*100
-        if m + g >= cur_G:
-            possible.append([m, d])
-        num = cur_G/(100*(ix+1))
-        if math.ceil(num) <= d:
-            possible.append([cur_G, num])
-    if len(possible)>0:
-        min_num = min([x[1] for x in possible])
-        return min_num + cur_num
-    else:
-        d = d_s[-1]
-        g = g_s[-1]
-        cur_G -= d * (ix+1) * 100 + g
-        d_s = d_s[:-1]
-        g_s = g_s[:-1]
-        return solve(cur_G, cur_num + d)
-    """
-print(int(solve(G, 0)))
+    min_num_solved = inf
+    
+    for i in range(1 << D):
+        point = 0
+        num_solved = 0
+        unsolved_max = 0
+        for j in range(D):
+            solve_all = (i >> j) & 1
+            if solve_all:
+                point += (j+1) * 100 * p[j] + c[j]        
+                num_solved += p[j]
+            else:
+                unsolved_max = max(unsolved_max, j)
+         
+        if point < G:
+            residue = G - point
+            p_num = p[unsolved_max]
+            while residue > 0 and p_num > 0:
+                residue -= (unsolved_max+1) * 100 
+                p_num -= 1
+                num_solved += 1
+            if residue > 0:
+                continue
+        min_num_solved = min(min_num_solved, num_solved)
+    print(min_num_solved)    
+
+main()
+

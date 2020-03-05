@@ -1,3 +1,4 @@
+import collections
 def solve(S):
     r_ix = len(S)
     while len(S):
@@ -14,6 +15,24 @@ def solve(S):
             return "NO"
                 
     return "YES"
+
+
+def solve2(S):
+    word = ['dream', 'dreamer', 'erase', 'eraser']
+    buf = []
+    for ch in S:
+        buf.append(ch)
+    curchar = ''
+    while len(buf) > 0:
+        c = buf.pop()
+        curchar = c + curchar
+        if curchar in word:
+            curchar = ''
+
+    if curchar == '':
+        return "YES"
+
+    return "NO"
 
 if __name__ == "__main__":
     S = input()
