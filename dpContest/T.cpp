@@ -22,36 +22,47 @@ const int inf = 1000000001;
 const ll INF = 1e18 * 4;
 using namespace std;
 
-int main() {
-    int N;
-    cin >> N;
-    int a[401];
-    rep(i, 0, N) cin >> a[i];
+ll dp[3001][3001];
 
-    ll cumsum[402];
-    cumsum[0] = 0;
-    rep(i, 0, N) cumsum[i+1] = cumsum[i] + a[i];
-
-    ll dp[401][401];
-    rep(i, 0, N+1){
-        rep(j, 0, N+1){
-            dp[i][j] = INF;
+void d(int dp[3001][3001], int N){
+    rep(i, 0, N){
+        rep(j, 0, N){
+            cout << dp[i][j] << ", ";
         }
+        cout << endl;
     }
-    rep(i, 0, N+1) dp[i][i] = 0;
-    rep(i, 0, N) dp[i][i+1] = 0;
-    rep(k, 2, N+1){
-        for(int i=0; i<N+1; i++){
-            int j = i + k;
-            if(j > N) continue;
-            for(int l=i+1; l<j; l++){
-                dp[i][j] = min(dp[i][j], dp[i][l] + dp[l][j] + cumsum[j] - cumsum[i]);
-            }
-        }
-    }
-    cout << dp[0][N] << endl;
-
-    return 0;
 }
 
-
+int main(){
+    int N; cin >> N;
+    string S; cin >> S;
+    rep(i, 0, N){
+        dp[0][i] = 1;
+    }
+    rep(i, 1, N){
+        rep(j, 0, N-i+1){
+            if (S[i-1] == '<'){
+                dp[i][j] += (dp[i-1][j] % MOD);
+                dp[i][N-i] -= (dp[i-1][j] % MOD);
+                dp[i][j] %= MOD;
+                dp[i][N-i] %= MOD;
+            } else if (S[i-1] == '>'){
+                dp[i][0] += (dp[i-1][j] % MOD);
+                dp[i][j] -= (dp[i-1][j] % MOD);
+                dp[i][0] %= MOD;
+                dp[i][j] %= MOD;
+            }
+        }
+        rep(j, 1, N+1){
+            dp[i][j] += dp[i][j-1] % MOD;
+            dp[i][j] %= MOD;
+        }
+    }
+    ll ans = 0;
+    rep(j, 0, N){
+        ans += (dp[N-1][j] % MOD);
+        ans %= MOD;
+    }
+    cout << ans % MOD << endl;
+    return 0;
+}

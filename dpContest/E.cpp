@@ -20,37 +20,35 @@ int dx2[8] = { 1,1,0,-1,-1,-1,0,1 }, dy2[8] = { 0,1,1,1,0,-1,-1,-1 };
 typedef long long ll;
 const int inf = 1000000001;
 const ll INF = 1e18 * 4;
+#define maxW 100001
 using namespace std;
-
-int main() {
-    int N;
-    cin >> N;
-    int a[401];
-    rep(i, 0, N) cin >> a[i];
-
-    ll cumsum[402];
-    cumsum[0] = 0;
-    rep(i, 0, N) cumsum[i+1] = cumsum[i] + a[i];
-
-    ll dp[401][401];
-    rep(i, 0, N+1){
-        rep(j, 0, N+1){
-            dp[i][j] = INF;
+vi w(101);
+vi v(101);
+ll dp[101][maxW];
+int main(){
+    int N, W;
+    cin >> N >> W;
+    rep(i, 0, N){
+        int x, y;
+        cin >> w[i] >> v[i];
+    }
+    rep(i, 0, maxW) dp[0][i] = INF;
+    rep(j, 0, N+1) dp[j][0] = 0;
+    rep(i, 0, N){
+        rep(j, 0, maxW){
+            if(j-v[i] >= 0) dp[i+1][j] = min(dp[i][j-v[i]] + w[i], dp[i][j]);
+            else dp[i+1][j] = dp[i][j];
         }
     }
-    rep(i, 0, N+1) dp[i][i] = 0;
-    rep(i, 0, N) dp[i][i+1] = 0;
-    rep(k, 2, N+1){
-        for(int i=0; i<N+1; i++){
-            int j = i + k;
-            if(j > N) continue;
-            for(int l=i+1; l<j; l++){
-                dp[i][j] = min(dp[i][j], dp[i][l] + dp[l][j] + cumsum[j] - cumsum[i]);
+    int ans = 0;
+    rep(i, 0, N+1){
+        rep(j, 0, maxW){
+            if(dp[i][j] <= W){
+                ans = max(ans, j);
             }
         }
     }
-    cout << dp[0][N] << endl;
-
+    cout << ans << endl;
     return 0;
 }
 

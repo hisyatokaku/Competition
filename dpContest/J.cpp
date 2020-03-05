@@ -34,7 +34,6 @@ int main(){
         dp[i+1] = a[i] * (double) n/(n-i) + dp[i];
     } 
     cout << dp[n];
-
     return 0;
 
 
