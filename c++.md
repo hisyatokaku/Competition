@@ -3,6 +3,20 @@
 - リテラルにはLLをつけないとintとして解釈されてしまう。
   - 例えば1LL << 63とする必要がある。1 << 63ではinteger扱いにされる。
 
+## Adjacency Matrixの入力例
+```cpp
+using edge = struct{ll to; ll dist;}
+vector<vector<edge> > G(n);
+G[0].push_back({to; dist;});
+```
+
+## for文ループ
+```cpp
+for(auto &v : vector){
+  do_something();
+}
+```
+
 # 素数
 ## エラトステネス
 ```cpp
