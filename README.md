@@ -387,40 +387,6 @@ class SegmentTree():
 - root(v)
 - sameRoot(v)
 
-```
-class UnionFind():
-    def __init__(self, n):
-        self.par = [-1 for _ in range(n)]
-        self.sizeDict = { i: 1 for i in range(n)}
-
-    def unite(self, v1, v2):
-        '''
-        connect v2 to v1.
-
-        parent: v1
-        child: v2
-        '''
-        r1 = self.root(v1)
-        r2 = self.root(v2)
-        if r1 == r2:
-            return
-        self.par[r2] = r1
-        self.sizeDict[r1] += self.sizeDict[r2]
-
-    def root(self, v):
-        if self.par[v] == -1:
-            return v
-        self.par[v] = self.root(self.par[v])
-        return self.par[v]
-
-    def sameRoot(self, v1, v2):
-        return self.root(v1) == self.root(v2)
-
-    def size(self, v):
-        return self.sizeDict[self.root(v)]
-```
-
-亜種として各集合のサイズを返す関数が必要な時もある。
 https://note.nkmk.me/python-union-find/
 より引用。
 
@@ -517,6 +483,27 @@ rep(i, 0, H){
     cin >> S[i][j];
   }
 }
+```
+
+# 木
+閉路はない。
+
+## Prim法
+
+## Kruscal法
+1. エッジをコスト順にソートする。
+2. 閉路ができなければ辺を仲間にいれる。 
++ 閉路の判定にはunionfindを使う。
+計算量はElog(E)で、特にE=V^2が最悪。そのときでもElog(V)がなりたつ。
+```python
+sort(edges)
+uf = UnionFind()
+cnt = 0
+for i in range(len(edges)):
+  e = edges[i]
+  if not uf.same(e.fr, e.to):
+    uf.union(e.fr, e.to)
+    cnt += e.cost
 ```
 
 # グラフ
