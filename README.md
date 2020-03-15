@@ -509,7 +509,7 @@ for i in range(len(edges)):
 # グラフ
 
 ## Dijkstra
-負の閉路なしで使える
+負辺なしかつ閉路なしで使える
 
 ```python
 unvisited = set(V)
@@ -522,6 +522,16 @@ while unvisited:
 
 ## Bellman-Ford
 負の閉路あっても使える
+
+```python
+for _ in range(V-1):
+  for edge in edges:
+    fr, to, cost = edge
+    relax(fr, to, cost)
+```
+
+ノードに関するiteration1回につき、最低1つはノードへの最短距離が確定する。
+出発点以外のノードはV-1個あるので、V-1回ループすればよい。
 
 ## Warshall–Floyd
 全頂点間の最短距離がわかる。
