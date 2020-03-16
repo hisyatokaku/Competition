@@ -39,6 +39,13 @@ for(auto &v : vector){
       }
   }
 ```
+### Priority-Queue
+```cpp
+priority_queue<int> max_heap; 
+priority_queue<int, vector<int>, greater<int> > min_heap;
+// pythonと逆でデフォルトがmax-heapなので注意
+```
+
 
 ### Union-Find
 ```cpp
