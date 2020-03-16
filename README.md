@@ -322,10 +322,12 @@ iという数字に対し、右から数えてjビット目のビットを知り
 
 # Priority-Queue
 Min-heap用の関数である。
+- heapq.heapify(list) # returns None
 - heaqp.heappush(b)
 - heapq.heappop()
 
 Max-heapの時は、
+- heapq.heapify([-x for x in list]) # returns None
 - heapq.heappush(-b)
 - -heapq.heappop()
 
@@ -612,6 +614,10 @@ for(int k=0; k<N; k++){
   }
 }
 ```
+
+## 苦手なもの
+- 正しいインデックスの操作。(累積和とか)
+  - 開区間で考える。[0, r)など。
 
 ## できない理由
 - ケースを考え忘れている
