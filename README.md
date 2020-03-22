@@ -623,6 +623,10 @@ for(int k=0; k<N; k++){
 - ケースを考え忘れている
 - 二次元配列を一次元配列にできないか考えてみる
 
+## よくあるミス
+- 0 <= r < W を 0 <= r < Cと書き間違える
+
+
 # 環境
 テンプレ作成方法
 https://stackoverflow.com/questions/55469524/how-to-write-vim-function-to-paste-a-template-text-into-current-file
