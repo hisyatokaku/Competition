@@ -615,6 +615,15 @@ for(int k=0; k<N; k++){
 }
 ```
 
+# 互除法
+```python
+def gcd(a, b):
+  if b == 0:
+    return a
+  return gcd(a, a % b)
+
+```
+
 ## 苦手なもの
 - 正しいインデックスの操作。(累積和とか)
   - 開区間で考える。[0, r)など。
