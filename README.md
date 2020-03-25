@@ -615,14 +615,21 @@ for(int k=0; k<N; k++){
 }
 ```
 
-# 互除法
+# 数学系
+
+## 互除法
 ```python
 def gcd(a, b):
   if b == 0:
     return a
   return gcd(a, a % b)
-
 ```
+
+## 拡張ユークリッド
+
+再帰の挙動が理解できない。
+https://qiita.com/drken/items/b97ff231e43bce50199a
+
 
 ## 苦手なもの
 - 正しいインデックスの操作。(累積和とか)
