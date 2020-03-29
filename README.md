@@ -539,11 +539,12 @@ for _ in range(V-1):
 全頂点間の最短距離がわかる。
 O(V^3)なので V <= 200ぐらいで使える。
 ```python
+# Gの距離情報をdに移しておく
 # kijの添字を間違うと死
 for k in range(V):
   for i in range(V):
     for j in range(V):
-      d[i][j] = min(d[i][j], G[i][k] + G[k][j])
+      d[i][j] = min(d[i][j], d[i][k] + d[k][j])
 ```
 
 ## BFS
