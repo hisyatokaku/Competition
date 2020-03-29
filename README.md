@@ -543,7 +543,7 @@ O(V^3)なので V <= 200ぐらいで使える。
 for k in range(V):
   for i in range(V):
     for j in range(V):
-      d[i][j] = min(d[i][j], d[i][k] + dr[k][j])
+      d[i][j] = min(d[i][j], G[i][k] + G[k][j])
 ```
 
 ## BFS
