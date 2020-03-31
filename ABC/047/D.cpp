@@ -15,6 +15,7 @@
 #define mod 1000000009
 #define pi 3.14159265358979323846
 #define Sp(p) cout<<setprecision(15)<< fixed<<p<<endl;
+#define pb push_back
 int dx[4] = { 1,0,-1,0 }, dy[4] = { 0,1,0,-1 };
 int dx2[8] = { 1,1,0,-1,-1,-1,0,1 }, dy2[8] = { 0,1,1,1,0,-1,-1,-1 };
 typedef long long ll;
@@ -22,43 +23,25 @@ const int inf = 1000000001;
 const ll INF = 1e18 * 4;
 using namespace std;
 
-vi decompose(int i){
-    vi ans;
-    for(int j=1; j<(int)sqrt(i) + 1; j++){
-        if(i % j == 0){
-            ans.push_back(j);
-            if((int)(i / j) != j) ans.push_back(i / j);
-        }
-    }
-    return ans;
-}
-
 int main(){
-    int N; cin >> N;
-    vi a;
-    vi b(N+1, 0);
-    vi box(N+1, 0);
+    ll N, T; cin >> N >> T;
+    vl a(N, 0);
+    vl gap;
+    vl prof(N, 0);
+    rep(i, 0, N) cin >> a[i];
+    a.pb(-1LL);
+    ll curmin = inf;
+    ll maxprofit = 0;
     rep(i, 0, N){
-        int x;
-        cin >> x;
-        a.push_back(x);
+        if(a[i] < curmin) curmin = a[i];
+        prof[i] = a[i] - curmin;
     }
-    for(int i=N; i>0; i--){
-        if((a[i-1] == 1 && b[i] % 2 == 0) || (a[i-1] == 0 && b[i] % 2 == 1)){
-            b[i] += 1;
-            box[i] += 1;
-            vi yakusu = decompose(i);
-            for(auto &j : yakusu){
-                if(j == i) continue;
-                b[j] += 1;
-            }
-        }
+    DEBUG_VEC(prof);
+    sorted(prof.begin(), prof.end(), greater<ll>())
+    ll cnt = 0;
+    rep(i, 0, gap.size()){
     }
-    ll cnt = accumulate(box.begin(), box.end(), 0LL);
     cout << cnt << endl;
-    rep(i, 1, N+1){
-        if(box[i]) cout << i << endl;
-    }
     return 0;
 }
 

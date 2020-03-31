@@ -22,42 +22,34 @@ const int inf = 1000000001;
 const ll INF = 1e18 * 4;
 using namespace std;
 
-vi decompose(int i){
-    vi ans;
-    for(int j=1; j<(int)sqrt(i) + 1; j++){
-        if(i % j == 0){
-            ans.push_back(j);
-            if((int)(i / j) != j) ans.push_back(i / j);
-        }
-    }
-    return ans;
-}
-
 int main(){
+    int H, W; cin >> H >> W;
     int N; cin >> N;
-    vi a;
-    vi b(N+1, 0);
-    vi box(N+1, 0);
-    rep(i, 0, N){
-        int x;
-        cin >> x;
-        a.push_back(x);
-    }
-    for(int i=N; i>0; i--){
-        if((a[i-1] == 1 && b[i] % 2 == 0) || (a[i-1] == 0 && b[i] % 2 == 1)){
-            b[i] += 1;
-            box[i] += 1;
-            vi yakusu = decompose(i);
-            for(auto &j : yakusu){
-                if(j == i) continue;
-                b[j] += 1;
-            }
+    vi a(N);
+    vii G(H, vi(W));
+    rep(i, 0, N) cin >> a[i];
+    int cur_i = 0;
+    rep(r, 0, H){
+        if(r % 2 == 0){
+            for(int c=0; c<W; c++){
+                if(a[cur_i] == 0) cur_i++;
+                G[r][c] = (cur_i + 1);
+                a[cur_i]--;
+            } 
+        } else {
+            for(int c=W-1; c >= 0; c--){
+                if(a[cur_i] == 0) cur_i++;
+                G[r][c] = (cur_i + 1);
+                a[cur_i]--;
+            } 
         }
+
     }
-    ll cnt = accumulate(box.begin(), box.end(), 0LL);
-    cout << cnt << endl;
-    rep(i, 1, N+1){
-        if(box[i]) cout << i << endl;
+    rep(i, 0, H){
+        rep(j, 0, W){
+            cout << G[i][j] << " ";
+        }
+        cout << endl;
     }
     return 0;
 }

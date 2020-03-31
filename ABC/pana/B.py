@@ -15,20 +15,17 @@ def LS(): return sys.stdin.readline().split()
 def I(): return int(sys.stdin.readline())
 def F(): return float(sys.stdin.readline())
 def S(): return input()
-
-
+     
 def main():
-    X = I()
-    if X == 1:
+    H, W = LI()
+    if H == 1 or W == 1:
         print(1)
         return
-    nsum = 1
-    n = 0
-    while nsum < X:
-        n += 1
-        nsum = (1 + n) * n //2 
-    # if nsum > X:
-    #     n += 1
-    print(n)
+    if H * W % 2 > 0:
+        cnt = (H * W + 1) // 2
+    else:
+        cnt = H*W//2
+    print(cnt)
+
 main()
 

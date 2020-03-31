@@ -15,20 +15,33 @@ def LS(): return sys.stdin.readline().split()
 def I(): return int(sys.stdin.readline())
 def F(): return float(sys.stdin.readline())
 def S(): return input()
-
-
+     
 def main():
-    X = I()
-    if X == 1:
-        print(1)
-        return
-    nsum = 1
-    n = 0
-    while nsum < X:
-        n += 1
-        nsum = (1 + n) * n //2 
-    # if nsum > X:
-    #     n += 1
-    print(n)
+    q = deque()
+    N = I()
+    s = S()
+    cnt_l = 0 # (
+    cnt_r = 0 # )
+
+    for c in s:
+        if c == '(':
+            cnt_l += 1
+        else:
+            cnt_r += 1
+            if cnt_l > 0:
+                cnt_l -= 1
+                cnt_r -= 1
+        q.append(c)
+    while cnt_l:
+        q.append(')')
+        cnt_l -= 1
+    while cnt_r:
+        q.appendleft('(')
+        cnt_r -= 1
+    ans = []
+    for c in q:
+        ans.append(c)
+    print(''.join(ans))
+
 main()
 

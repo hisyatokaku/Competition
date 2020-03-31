@@ -16,9 +16,9 @@ def I(): return int(sys.stdin.readline())
 def F(): return float(sys.stdin.readline())
 def S(): return input()
 
-fac = [-1] * (10**7+1)
-inv = [-1] * (10**7+1)
-finv = [-1] * (10**7+1)
+fac = [-1] * (10**6+1)
+inv = [-1] * (10**6+1)
+finv = [-1] * (10**6+1)
 
 fac[0] = fac[1] = 1
 inv[1] = 1
@@ -39,27 +39,31 @@ def NCMMod(n, k):
 
 initNCMMod(100000)
 
-def inv_fac(n):
-    # inv[n!] = inv[n] * inv[n-1] * ... inv[1]
-    if n == 1:
-        return 1
-    return inv[n] * inv_fac(n-1) % mod
-
 def main():
-    R, C = LI()
-    X, Y = LI()
-    D, L = LI()
-    cnt = 0
-    if D + L == X * Y:
-        cnt += NCMMod(X*Y, D) % mod
-    else:
-        empty = R * C - D - L
-        import pdb
-        pdb.set_trace()
-        cnt += fac[R*C] * inv_fac(D) * inv_fac(L) * inv_fac(empty)
+    n = I()
+    a = LI()
+    tmp_set = set()
+    e = -1
+    i1, i2 = -1, -1
+    for i in range(n+1):
+        if a[i] in tmp_set:
+            i2 = i
+            e = a[i]
+        tmp_set.add(a[i])
+    for i in range(n+1):
+        if a[i] == e:
+            i1 = i
+            break
+    left = i1
+    right = n - i2 - 1
+    for k in range(1, n+2):
+        if k == 1:
+            print(n)
+            continue
+
+        cnt = NCMMod(n+1, k)
+        cnt -= NCMMod(left+right, k-1)
         cnt %= mod
-    x_margin = R - X + 1
-    y_margin = C - Y + 1
-    print((cnt * x_margin * y_margin) % mod)
+        print(cnt)
 main()
 

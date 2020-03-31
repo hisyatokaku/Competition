@@ -15,20 +15,27 @@ def LS(): return sys.stdin.readline().split()
 def I(): return int(sys.stdin.readline())
 def F(): return float(sys.stdin.readline())
 def S(): return input()
+     
 
+def iskaibun(s):
+    l = 0
+    r = len(s) - 1
+    while l < r:
+        if s[l] == s[r]:
+            l += 1
+            r -= 1
+            continue
+        else:
+            return False
+    return True
 
 def main():
-    X = I()
-    if X == 1:
-        print(1)
-        return
-    nsum = 1
-    n = 0
-    while nsum < X:
-        n += 1
-        nsum = (1 + n) * n //2 
-    # if nsum > X:
-    #     n += 1
-    print(n)
+    s = S()
+    N = len(s)
+    if iskaibun(s) and iskaibun(s[:(N-1)//2]) and iskaibun(s[(N+3)//2 - 1:]):
+        print('Yes')
+    else:
+        print('No')
+
 main()
 

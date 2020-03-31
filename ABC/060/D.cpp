@@ -5,6 +5,7 @@
 #define vl vector<ll>
 #define vii vector< vector<int> >
 #define vll vector< vector<ll> >
+#define vlll vector< vector< vector<ll> > >
 #define vs vector<string>
 #define pii pair<int,int>
 #define pis pair<int,string>
@@ -22,43 +23,44 @@ const int inf = 1000000001;
 const ll INF = 1e18 * 4;
 using namespace std;
 
-vi decompose(int i){
-    vi ans;
-    for(int j=1; j<(int)sqrt(i) + 1; j++){
-        if(i % j == 0){
-            ans.push_back(j);
-            if((int)(i / j) != j) ans.push_back(i / j);
-        }
-    }
-    return ans;
-}
-
 int main(){
-    int N; cin >> N;
-    vi a;
-    vi b(N+1, 0);
-    vi box(N+1, 0);
+    ll N, W; cin >> N >> W;
+    vl w;
+    vl v;
     rep(i, 0, N){
-        int x;
-        cin >> x;
-        a.push_back(x);
+        ll _w, _v; cin >> _w >> _v;
+        w.push_back(_w);
+        v.push_back(_v);
     }
-    for(int i=N; i>0; i--){
-        if((a[i-1] == 1 && b[i] % 2 == 0) || (a[i-1] == 0 && b[i] % 2 == 1)){
-            b[i] += 1;
-            box[i] += 1;
-            vi yakusu = decompose(i);
-            for(auto &j : yakusu){
-                if(j == i) continue;
-                b[j] += 1;
+    ll w0 = w[0];
+    rep(i, 0, N){
+        w[i] -= w0;
+    }
+    vlll dp(N+1, vll(301, vl(N+1, 0)));
+    /* rep(i, 1, N+1){ */
+    /*     dp[i][0][0] = -INF; */
+    /* } */
+    rep(i, 1, N+1){
+        rep(j, 0, 301){
+            rep(k, 1, N+1){
+                if(j - w[i-1] >= 0){
+                    dp[i][j][k] = max(
+                            dp[i-1][j][k], dp[i-1][j-w[i-1]][k-1] + v[i-1]
+                            );
+                } else dp[i][j][k] = dp[i-1][j][k];
+                }
+            }
+        } 
+    ll ans = 0;
+    rep(j, 0, 3*N+1){
+        rep(k, 0, N+1){
+            ll weight = k * w0 + j;
+            if(weight <= W){
+                ans = max(ans, dp[N][j][k]);
             }
         }
     }
-    ll cnt = accumulate(box.begin(), box.end(), 0LL);
-    cout << cnt << endl;
-    rep(i, 1, N+1){
-        if(box[i]) cout << i << endl;
-    }
+    cout << ans << endl;
     return 0;
 }
 

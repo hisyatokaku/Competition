@@ -15,20 +15,10 @@ def LS(): return sys.stdin.readline().split()
 def I(): return int(sys.stdin.readline())
 def F(): return float(sys.stdin.readline())
 def S(): return input()
-
-
+     
 def main():
-    X = I()
-    if X == 1:
-        print(1)
-        return
-    nsum = 1
-    n = 0
-    while nsum < X:
-        n += 1
-        nsum = (1 + n) * n //2 
-    # if nsum > X:
-    #     n += 1
-    print(n)
+    N, P = LI()
+    s = S()
+
 main()
 

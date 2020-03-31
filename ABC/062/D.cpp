@@ -22,43 +22,51 @@ const int inf = 1000000001;
 const ll INF = 1e18 * 4;
 using namespace std;
 
-vi decompose(int i){
-    vi ans;
-    for(int j=1; j<(int)sqrt(i) + 1; j++){
-        if(i % j == 0){
-            ans.push_back(j);
-            if((int)(i / j) != j) ans.push_back(i / j);
-        }
-    }
-    return ans;
-}
-
 int main(){
-    int N; cin >> N;
-    vi a;
-    vi b(N+1, 0);
-    vi box(N+1, 0);
+    ll N; cin >> N;
+    vl A(3*N, 0);
+    rep(i, 0, 3*N){
+        cin >> A[i];
+    }
+    priority_queue<ll, vl, greater<ll> > left_pq;
+    priority_queue<ll> right_pq;
+    vl left(3*N+1, 0);
+    vl right(3*N+1, 0);
+    ll l_sum=0;
+    ll r_sum=0;
     rep(i, 0, N){
-        int x;
-        cin >> x;
-        a.push_back(x);
+        left_pq.push(A[i]);
+        l_sum += A[i];
     }
-    for(int i=N; i>0; i--){
-        if((a[i-1] == 1 && b[i] % 2 == 0) || (a[i-1] == 0 && b[i] % 2 == 1)){
-            b[i] += 1;
-            box[i] += 1;
-            vi yakusu = decompose(i);
-            for(auto &j : yakusu){
-                if(j == i) continue;
-                b[j] += 1;
-            }
-        }
+    rep(i, 0, N){
+        right_pq.push(A[3*N-i-1]);
+        r_sum += A[3*N-i-1];
     }
-    ll cnt = accumulate(box.begin(), box.end(), 0LL);
-    cout << cnt << endl;
-    rep(i, 1, N+1){
-        if(box[i]) cout << i << endl;
+    left[N] += l_sum;
+    right[2*N] += r_sum;
+
+    rep(i, 0, N){
+        ll newl = A[N+i];
+        l_sum += newl;
+        left_pq.push(newl);
+        l_sum -= left_pq.top();
+        left_pq.pop();
+        left[N+i+1] += l_sum;
+
+        ll newr = A[2*N-1 - i];
+        r_sum += newr;
+        right_pq.push(newr);
+        r_sum -= right_pq.top();
+        right_pq.pop();
+        right[2*N-1 - i] += r_sum;
     }
+    ll ans = -inf;
+    rep(i, N, 2*N+1){
+        ans = max(ans, left[i] - right[i]);
+    }
+
+    cout << ans << endl;
+
     return 0;
 }
 

@@ -15,20 +15,22 @@ def LS(): return sys.stdin.readline().split()
 def I(): return int(sys.stdin.readline())
 def F(): return float(sys.stdin.readline())
 def S(): return input()
-
-
+    
 def main():
-    X = I()
-    if X == 1:
-        print(1)
-        return
-    nsum = 1
-    n = 0
-    while nsum < X:
-        n += 1
-        nsum = (1 + n) * n //2 
-    # if nsum > X:
-    #     n += 1
-    print(n)
+    n, m = LI()
+    x = sorted(LI())
+    y = sorted(LI())
+    ans = 0
+    for i in range(len(x)):
+        k = i + 1
+        ans += (k - 1 - n + k) * x[i]
+    ysum = 0
+    for j in range(len(y)):
+        k = j + 1
+        ysum += (k - 1 - m + k) * y[j]
+    ans *= ysum
+    ans %= mod
+    print(ans)
+
 main()
 

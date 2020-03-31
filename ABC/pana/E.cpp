@@ -22,43 +22,46 @@ const int inf = 1000000001;
 const ll INF = 1e18 * 4;
 using namespace std;
 
-vi decompose(int i){
-    vi ans;
-    for(int j=1; j<(int)sqrt(i) + 1; j++){
-        if(i % j == 0){
-            ans.push_back(j);
-            if((int)(i / j) != j) ans.push_back(i / j);
-        }
-    }
-    return ans;
-}
 
-int main(){
-    int N; cin >> N;
-    vi a;
-    vi b(N+1, 0);
-    vi box(N+1, 0);
-    rep(i, 0, N){
-        int x;
-        cin >> x;
-        a.push_back(x);
-    }
-    for(int i=N; i>0; i--){
-        if((a[i-1] == 1 && b[i] % 2 == 0) || (a[i-1] == 0 && b[i] % 2 == 1)){
-            b[i] += 1;
-            box[i] += 1;
-            vi yakusu = decompose(i);
-            for(auto &j : yakusu){
-                if(j == i) continue;
-                b[j] += 1;
+
+ll s_match(string a, string b){
+    ll max_a_b_dup = 0;
+    rep(i, 0, a.length()){
+        ll cnt = 0;
+        if(a[i] == b[0] || b[0] == '?' || a[i] == '?'){
+            int cp_i = i;
+            rep(j, 0, b.length()){
+                if(cp_i >= a.length()) break;
+                if(a[cp_i] == b[j] || a[cp_i] == '?') cnt++;
+                else{
+                    cnt = 0;
+                };
+                cp_i++;
             }
         }
+        max_a_b_dup = max(max_a_b_dup, cnt);
     }
-    ll cnt = accumulate(box.begin(), box.end(), 0LL);
-    cout << cnt << endl;
-    rep(i, 1, N+1){
-        if(box[i]) cout << i << endl;
-    }
+    ll ans = a.length() + b.length() - max_a_b_dup;
+    return ans;}
+ll match(string a, string b, string c){
+    ll ans = s_match(a, b) + s_match(b, c) - b.length();
+    return ans;
+}
+int main(){
+    string a, b, c;
+    cin >> a;
+    cin >> b;
+    cin >> c;
+    ll ans = min({
+    match(a, b, c),
+    match(a, c, b),
+    match(b, a, c),
+    match(b, c, a),
+    match(c, a, b),
+    match(c, b, a)
+    });
+    cout << ans << endl;
+    
     return 0;
 }
 

@@ -15,20 +15,25 @@ def LS(): return sys.stdin.readline().split()
 def I(): return int(sys.stdin.readline())
 def F(): return float(sys.stdin.readline())
 def S(): return input()
-
-
+     
 def main():
-    X = I()
-    if X == 1:
-        print(1)
-        return
-    nsum = 1
-    n = 0
-    while nsum < X:
-        n += 1
-        nsum = (1 + n) * n //2 
-    # if nsum > X:
-    #     n += 1
-    print(n)
+    N, X, Y = LI()
+    X-=1
+    Y-=1
+    G = [[N+1 for _ in range(N)] for __ in range(N)]
+    dists = []
+    for i in range(N):
+        for j in range(i, N):
+            if i == j:
+                continue
+            # i->X->Y->j
+            # i->j
+            route = abs(X-i) + 1 + abs(Y-j)
+            G[i][j] = min(abs(i-j), route)
+            dists.append(G[i][j])
+    c_dists = collections.Counter(dists)
+    for i in range(1, N):
+        print(c_dists[i])
+
 main()
 

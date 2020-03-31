@@ -22,43 +22,14 @@ const int inf = 1000000001;
 const ll INF = 1e18 * 4;
 using namespace std;
 
-vi decompose(int i){
-    vi ans;
-    for(int j=1; j<(int)sqrt(i) + 1; j++){
-        if(i % j == 0){
-            ans.push_back(j);
-            if((int)(i / j) != j) ans.push_back(i / j);
-        }
-    }
-    return ans;
-}
-
 int main(){
-    int N; cin >> N;
-    vi a;
-    vi b(N+1, 0);
-    vi box(N+1, 0);
+    int N, K; cin >> N >> K;
+    int cnt = 0;
     rep(i, 0, N){
-        int x;
-        cin >> x;
-        a.push_back(x);
+        int h; cin >> h;
+        if(h >= K) cnt++;
     }
-    for(int i=N; i>0; i--){
-        if((a[i-1] == 1 && b[i] % 2 == 0) || (a[i-1] == 0 && b[i] % 2 == 1)){
-            b[i] += 1;
-            box[i] += 1;
-            vi yakusu = decompose(i);
-            for(auto &j : yakusu){
-                if(j == i) continue;
-                b[j] += 1;
-            }
-        }
-    }
-    ll cnt = accumulate(box.begin(), box.end(), 0LL);
     cout << cnt << endl;
-    rep(i, 1, N+1){
-        if(box[i]) cout << i << endl;
-    }
     return 0;
 }
 

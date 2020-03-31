@@ -18,47 +18,50 @@
 int dx[4] = { 1,0,-1,0 }, dy[4] = { 0,1,0,-1 };
 int dx2[8] = { 1,1,0,-1,-1,-1,0,1 }, dy2[8] = { 0,1,1,1,0,-1,-1,-1 };
 typedef long long ll;
-const int inf = 1000000001;
+const int inf = 10001;
 const ll INF = 1e18 * 4;
 using namespace std;
 
-vi decompose(int i){
-    vi ans;
-    for(int j=1; j<(int)sqrt(i) + 1; j++){
-        if(i % j == 0){
-            ans.push_back(j);
-            if((int)(i / j) != j) ans.push_back(i / j);
-        }
-    }
-    return ans;
-}
-
 int main(){
-    int N; cin >> N;
-    vi a;
-    vi b(N+1, 0);
-    vi box(N+1, 0);
-    rep(i, 0, N){
-        int x;
-        cin >> x;
-        a.push_back(x);
+    int N, M; cin >> N >> M;
+    vii G(N, vi(N, inf));
+    vii d(N, vi(N, inf));
+    
+    rep(i, 0, M){
+        int a, b, c; cin >> a >> b >> c;
+        a--; b--;
+        G[a][b] = c;
+        G[b][a] = c;
+        d[a][b] = c;
+        d[b][a] = c;
     }
-    for(int i=N; i>0; i--){
-        if((a[i-1] == 1 && b[i] % 2 == 0) || (a[i-1] == 0 && b[i] % 2 == 1)){
-            b[i] += 1;
-            box[i] += 1;
-            vi yakusu = decompose(i);
-            for(auto &j : yakusu){
-                if(j == i) continue;
-                b[j] += 1;
+    rep(i, 0, N){
+        G[i][i] = 0;
+        d[i][i] = 0;
+    }
+    rep(k, 0, N){
+        rep(i, 0, N){
+            rep(j, 0, N){
+                d[i][j] = min(d[i][j], d[i][k] + d[k][j]); 
             }
         }
     }
-    ll cnt = accumulate(box.begin(), box.end(), 0LL);
-    cout << cnt << endl;
-    rep(i, 1, N+1){
-        if(box[i]) cout << i << endl;
+    ll ans = 0;
+    rep(a, 0, N){
+        rep(b, 0, N){
+            int dist = G[a][b];
+            bool used = false;
+            if(dist == inf) continue;
+            if(a == b) continue;
+            rep(i, 0, N){
+                rep(j, 0, N){
+                    if(d[i][a] + dist + d[b][j] == d[i][j]) used = true;
+                }
+            }
+            if(!used) ans++;
+        }
     }
+    cout << (int)(ans / 2) << endl;
     return 0;
 }
 

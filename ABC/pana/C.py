@@ -16,19 +16,20 @@ def I(): return int(sys.stdin.readline())
 def F(): return float(sys.stdin.readline())
 def S(): return input()
 
+def sqrt(x):
+    epsilon = 10**(-15)
+    guess = x / 2.0
+    while abs(guess**2-x)>=epsilon:
+        guess = guess - ((guess**2-x)/(2*guess))
+    return guess
+
 
 def main():
-    X = I()
-    if X == 1:
-        print(1)
-        return
-    nsum = 1
-    n = 0
-    while nsum < X:
-        n += 1
-        nsum = (1 + n) * n //2 
-    # if nsum > X:
-    #     n += 1
-    print(n)
+    a, b, c = LI()
+    if 4 * a * b < (c - a - b) ** 2 and c - a - b >= 0:
+        print('Yes')
+    else:
+        print('No')
+
 main()
 

@@ -22,43 +22,40 @@ const int inf = 1000000001;
 const ll INF = 1e18 * 4;
 using namespace std;
 
-vi decompose(int i){
-    vi ans;
-    for(int j=1; j<(int)sqrt(i) + 1; j++){
-        if(i % j == 0){
-            ans.push_back(j);
-            if((int)(i / j) != j) ans.push_back(i / j);
-        }
-    }
-    return ans;
-}
-
 int main(){
     int N; cin >> N;
     vi a;
-    vi b(N+1, 0);
-    vi box(N+1, 0);
     rep(i, 0, N){
-        int x;
-        cin >> x;
-        a.push_back(x);
+        int _a; cin >> _a;
+        a.push_back(_a);
     }
-    for(int i=N; i>0; i--){
-        if((a[i-1] == 1 && b[i] % 2 == 0) || (a[i-1] == 0 && b[i] % 2 == 1)){
-            b[i] += 1;
-            box[i] += 1;
-            vi yakusu = decompose(i);
-            for(auto &j : yakusu){
-                if(j == i) continue;
-                b[j] += 1;
+    int ans = -inf;
+    rep(i, 0, N){
+        int aoki_j = -1;
+        int max_aoki = -inf;
+        int max_taka = -inf;
+        rep(j, 0, N){
+            if(i==j) continue;
+            int aoki = 0;
+            int taka = 0;
+            for(int di=0; min(i, j) + di <= max(i, j); di++){
+                int c = min(i, j) + di;
+                if((di + 1) % 2 == 0){
+                    aoki += a[c];
+                } else {
+                    taka += a[c]; 
+                } 
+            }
+            if(max_aoki < aoki){
+                max_aoki = aoki;
+                max_taka = taka;
+                aoki_j = j;
             }
         }
+        ans = max(max_taka, ans);
     }
-    ll cnt = accumulate(box.begin(), box.end(), 0LL);
-    cout << cnt << endl;
-    rep(i, 1, N+1){
-        if(box[i]) cout << i << endl;
-    }
+    cout << ans << endl;
+
     return 0;
 }
 
