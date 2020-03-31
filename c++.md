@@ -17,6 +17,34 @@ for(auto &v : vector){
 }
 ```
 
+## nCr
+```cpp
+// https://drken1215.hatenablog.com/entry/2018/06/08/210000
+const int MAX = 510000;
+
+long long fac[MAX], finv[MAX], inv[MAX];
+
+// テーブルを作る前処理
+void COMinit() {
+    fac[0] = fac[1] = 1;
+    finv[0] = finv[1] = 1;
+    inv[1] = 1;
+    for (int i = 2; i < MAX; i++){
+        fac[i] = fac[i - 1] * i % MOD;
+        inv[i] = MOD - inv[MOD%i] * (MOD / i) % MOD;
+        finv[i] = finv[i - 1] * inv[i] % MOD;
+    }
+}
+
+// 二項係数計算
+long long COM(int n, int k){
+    if (n < k) return 0;
+    if (n < 0 || k < 0) return 0;
+      return fac[n] * (finv[k] * finv[n - k] % MOD) % MOD;
+
+COMinit();
+```
+
 # 素数
 ## エラトステネス
 ```cpp
@@ -39,6 +67,13 @@ for(auto &v : vector){
       }
   }
 ```
+### Priority-Queue
+```cpp
+priority_queue<int> max_heap; 
+priority_queue<int, vector<int>, greater<int> > min_heap;
+// pythonと逆でデフォルトがmax-heapなので注意
+```
+
 
 ### Union-Find
 ```cpp

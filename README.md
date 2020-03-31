@@ -322,10 +322,12 @@ iという数字に対し、右から数えてjビット目のビットを知り
 
 # Priority-Queue
 Min-heap用の関数である。
+- heapq.heapify(list) # returns None
 - heaqp.heappush(b)
 - heapq.heappop()
 
 Max-heapの時は、
+- heapq.heapify([-x for x in list]) # returns None
 - heapq.heappush(-b)
 - -heapq.heappop()
 
@@ -387,40 +389,6 @@ class SegmentTree():
 - root(v)
 - sameRoot(v)
 
-```
-class UnionFind():
-    def __init__(self, n):
-        self.par = [-1 for _ in range(n)]
-        self.sizeDict = { i: 1 for i in range(n)}
-
-    def unite(self, v1, v2):
-        '''
-        connect v2 to v1.
-
-        parent: v1
-        child: v2
-        '''
-        r1 = self.root(v1)
-        r2 = self.root(v2)
-        if r1 == r2:
-            return
-        self.par[r2] = r1
-        self.sizeDict[r1] += self.sizeDict[r2]
-
-    def root(self, v):
-        if self.par[v] == -1:
-            return v
-        self.par[v] = self.root(self.par[v])
-        return self.par[v]
-
-    def sameRoot(self, v1, v2):
-        return self.root(v1) == self.root(v2)
-
-    def size(self, v):
-        return self.sizeDict[self.root(v)]
-```
-
-亜種として各集合のサイズを返す関数が必要な時もある。
 https://note.nkmk.me/python-union-find/
 より引用。
 
@@ -519,10 +487,31 @@ rep(i, 0, H){
 }
 ```
 
+# 木
+閉路はない。
+
+## Prim法
+
+## Kruscal法
+1. エッジをコスト順にソートする。
+2. 閉路ができなければ辺を仲間にいれる。 
++ 閉路の判定にはunionfindを使う。
+計算量はElog(E)で、特にE=V^2が最悪。そのときでもElog(V)がなりたつ。
+```python
+sort(edges)
+uf = UnionFind()
+cnt = 0
+for i in range(len(edges)):
+  e = edges[i]
+  if not uf.same(e.fr, e.to):
+    uf.union(e.fr, e.to)
+    cnt += e.cost
+```
+
 # グラフ
 
 ## Dijkstra
-負の閉路なしで使える
+負辺なしかつ閉路なしで使える
 
 ```python
 unvisited = set(V)
@@ -536,15 +525,26 @@ while unvisited:
 ## Bellman-Ford
 負の閉路あっても使える
 
+```python
+for _ in range(V-1):
+  for edge in edges:
+    fr, to, cost = edge
+    relax(fr, to, cost)
+```
+
+ノードに関するiteration1回につき、最低1つはノードへの最短距離が確定する。
+出発点以外のノードはV-1個あるので、V-1回ループすればよい。
+
 ## Warshall–Floyd
 全頂点間の最短距離がわかる。
 O(V^3)なので V <= 200ぐらいで使える。
 ```python
+# Gの距離情報をdに移しておく
 # kijの添字を間違うと死
 for k in range(V):
   for i in range(V):
     for j in range(V):
-      d[i][j] = min(d[i][j], d[i][k] + dr[k][j])
+      d[i][j] = min(d[i][j], d[i][k] + d[k][j])
 ```
 
 ## BFS
@@ -616,9 +616,33 @@ for(int k=0; k<N; k++){
 }
 ```
 
+# 数学系
+
+## 互除法
+```python
+def gcd(a, b):
+  if b == 0:
+    return a
+  return gcd(a, a % b)
+```
+
+## 拡張ユークリッド
+
+再帰の挙動が理解できない。
+https://qiita.com/drken/items/b97ff231e43bce50199a
+
+
+## 苦手なもの
+- 正しいインデックスの操作。(累積和とか)
+  - 開区間で考える。[0, r)など。
+
 ## できない理由
 - ケースを考え忘れている
 - 二次元配列を一次元配列にできないか考えてみる
+
+## よくあるミス
+- 0 <= r < W を 0 <= r < Cと書き間違える
+
 
 # 環境
 テンプレ作成方法
