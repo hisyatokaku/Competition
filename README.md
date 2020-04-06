@@ -548,6 +548,12 @@ for k in range(V):
       d[i][j] = min(d[i][j], d[i][k] + d[k][j])
 ```
 
+## トポロジカルソートの数え上げ
+- https://atcoder.jp/contests/abc041/tasks/abc041_d
+
+```python
+```
+
 ## BFS
 用意する変数：que, visited
 ```
