@@ -45,6 +45,31 @@ long long COM(int n, int k){
 COMinit();
 ```
 
+# グラフ
+## dijkstra
+```cpp
+using edge = struct{ll to; ll dist;};
+vector<vector<edge>> G(N);
+
+vi dijkstra(int v){
+    vi d(N, inf);
+    d[v] = 0;
+    priority_queue<pii, vector<pii>, greater<pii> > que;
+    que.push({v, 0});
+    while(!que.empty()){
+        pii cur = que.top(); que.pop();
+        for(auto &p : G[cur.first]){
+            if(d[p.to] > d[cur.first] + p.dist){
+                d[p.to] = d[cur.first] + p.dist;
+                que.push({p.to, d[p.to]});
+            }
+        }
+    }
+    return d;
+}
+
+```
+
 # 素数
 ## エラトステネス
 ```cpp
