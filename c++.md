@@ -130,8 +130,27 @@ struct UnionFind{
 
 ```
 
+## 算数
+### 非常に長い数が入った文字列のmod
+左から10をかけていく。
 
+```cpp
+int modp = 0;
+rep(i, 0, N){
+  modp *= 10;
+  modp += (s[i] - '0');
+  modp %= p;
+}
+```
 
+### 非常に長い数を10進数に直す
+```cpp
+int n = 0;
+rep(i, 0, N){
+  n *= 10;
+  n += (s[i] - '0');
+}
+```
 ## C++
 ### 役立つもの
 - [c++のvector](https://qiita.com/ysuzuki19/items/df872d91c9c89cc31aee)
