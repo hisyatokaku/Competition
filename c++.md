@@ -10,6 +10,24 @@ vector<vector<edge> > G(n);
 G[0].push_back({to; dist;});
 ```
 
+## クエリの入力例
+```
+1 int char
+or
+2 int int
+のとき
+```
+```cpp
+int x, y, z;
+char c;
+
+rep(i, 0, Q){
+  cin >> x;
+  if(x == 1){ cin >> y >> z; } // ここで続けて読み込める
+  else cin >> y >> c;
+}
+```
+
 ## for文ループ
 ```cpp
 for(auto &v : vector){
@@ -126,6 +144,56 @@ struct UnionFind{
     bool same(int x, int y){
         return find(x) == find(y);
     }
+};
+
+```
+
+## Segment Tree
+- pythonだと間に合わない可能性があるので
+```cpp
+struct SegmentTree {
+    private:
+        vl arr;
+        ll size;
+        ll n;
+        vl value;
+    public:
+        SegmentTree(vl array){
+            arr = array; 
+            size = calc_size(arr);
+            n = (size + 1) / 2;
+            value = vl(size, 0); // custom
+        }
+
+        ll calc_size(vl array){
+            int i = 1;
+            while(i < array.size()) i <<= 1;
+            return (i << 1) - 1;
+        }
+
+        void update(ll i, ll x){
+            i += n - 1;
+            value[i] = x;
+            while(i > 0){
+                i = (i-1) / 2;
+                value[i] = value[2*i+1] || value[2*i+2];
+            }
+        }
+
+        ll query(ll l, ll r){
+            return _query(l, r+1, 0, 0, n);
+        }
+    
+        ll _query(ll l, ll r, ll node_i, ll node_l, ll node_r){
+            if(node_r <= l || r <= node_l) return 0; // custom
+            if(l <= node_l && node_r <= r) return value[node_i];
+            ll c1 = _query(l, r, 2 * node_i + 1, node_l, (node_l + node_r) / 2);
+            ll c2 = _query(l, r, 2 * node_i + 2, (node_l + node_r) / 2, node_r);
+            return c1 || c2;
+        }
+        void print(){
+            DEBUG_VEC(value);
+        }
 };
 
 ```
