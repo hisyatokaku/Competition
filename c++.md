@@ -229,3 +229,11 @@ rep(i, 0, N){
 ### 役立つもの
 - [c++のvector](https://qiita.com/ysuzuki19/items/df872d91c9c89cc31aee)
 - [STL使用例](http://www-ikn.ist.hokudai.ac.jp/~kida/lecture/D_hokudai_Library.pdf)
+
+### set
+```cpp
+set<int> s;
+int v;
+s.lower_bound(v); // O(logn)
+// lower_bound(s.begin(), s.end(), i) ... O(n)かかる。二分探索木のiteratorは、random access iteratorではないため。
+// 参考：https://rsk0315.hatenablog.com/entry/2019/09/10/173708
