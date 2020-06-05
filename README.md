@@ -121,6 +121,12 @@ def NCMMod(n, k):
     return fac[n] * (finv[k] * finv[n-k] % mod) % mod
 ```
 
+## 逆元
+x * x^(p-2) = 1 (mod p)を用いると、(pは素数)
+```python
+a_gyakugen = mod_pow(a, mod-2)
+```
+
 ## 二分探索の境界条件
 ### パターン1. ng - ok > 1 条件を満たす境界を求める問題
 TL;DR **ng - ok > 1**
