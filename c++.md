@@ -89,6 +89,34 @@ vi dijkstra(int v){
 ```
 
 # 素数
+
+## 素因数分解
+```cpp
+map<int, int> prime_factor(int n){
+    map<int, int> res;
+    for(int i=2; i*i <= n; i++){
+        while(n % i == 0){
+            ++res[i];
+            n /= i;
+        }
+    }
+    if(n != 1) res[n]++;
+    return res;
+}
+```
+
+
+## 繰り返し二乗法
+mod版
+```cpp  
+ll mod_pow(ll x, ll n){
+    if(n==0) return 1;
+    ll res = mod_pow(x*x % mod, n / 2);
+    if(n & 1) res = res * x % mod;
+    return res;
+}
+```
+
 ## エラトステネス
 ```cpp
   ll N = (TODO);
