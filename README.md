@@ -332,25 +332,25 @@ for i in (1 << n):
 ### 2進数での桁数を知りたい
 ```python
 def digit_bin(n):
-  cnt = 1
-  while n > 1:
-    n = n >> 1
-    cnt += 1
-  return cnt
+    cnt = 1
+    while n > 1:
+        n = n >> 1
+        cnt += 1
+    return cnt
 ```
 
 
 ### 1の桁数を数える
 ```python
 def count_one(n):
-  cnt = 0
-  i = 0
-  while n:
-    if n & 1 == 1:
-      cnt += 1
-    i += 1
-    n = n >> 1
-  return cnt
+    cnt = 0
+    i = 0
+    while n:
+        if n & 1 == 1:
+            cnt += 1
+        i += 1
+        n = n >> 1
+    return cnt
 ```
 
 # Priority-Queue
