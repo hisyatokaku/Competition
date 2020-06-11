@@ -316,15 +316,41 @@ def query_cs2d(s, x1, x2, y1, y2):
 ```
 
 # bit全探索
-n桁(0ビットからn-1ビットまで)を探索したい
+
+## bit操作
+### n桁(0ビットからn-1ビットまで)を探索したい
 ```
 for i in (1 << n):
   pass
 ```
 
-iという数字に対し、右から数えてjビット目のビットを知りたい
+### iという数字に対し、右から数えてjビット目のビットを知りたい
 ```
 (i >> j) & 1
+```
+
+### 2進数での桁数を知りたい
+```python
+def digit_bin(n):
+  cnt = 1
+  while n > 1:
+    n = n >> 1
+    cnt += 1
+  return cnt
+```
+
+
+### 1の桁数を数える
+```python
+def count_one(n):
+  cnt = 0
+  i = 0
+  while n:
+    if n & 1 == 1:
+      cnt += 1
+    i += 1
+    n = n >> 1
+  return cnt
 ```
 
 # Priority-Queue
