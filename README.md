@@ -376,7 +376,7 @@ class SegmentTree():
         self.arr = arr
         self.size = self.calc_size(arr)
         self.n = (self.size+ 1) // 2 
-        self.value = [2**31 - 1 for _ in range(self.size)]
+        self.value = [2**31 - 1 for _ in range(self.size)] # ==== change accordingly ====
 
     def calc_size(self, array):
         i = 1
@@ -390,7 +390,7 @@ class SegmentTree():
         self.value[i] = x
         while i > 0:
             i = (i - 1)//2
-            self.value[i] = min(self.value[2*i+1], self.value[2*i+2])
+            self.value[i] = min(self.value[2*i+1], self.value[2*i+2]) # ==== change accordingly ====
 
     def query(self, l, r):
         # find [l, r)
@@ -400,14 +400,14 @@ class SegmentTree():
             # node_r: node.rightChild is in charge of [m, node_r)
 
             if node_r <= l or r <= node_l:
-                return inf
+                return inf # ==== change accordingly ====
 
             if l <= node_l and node_r <= r:
                 return self.value[node_i]
 
             c1 = _query(l, r, 2 * node_i + 1, node_l, (node_l + node_r) // 2)
             c2 = _query(l, r, 2 * node_i + 2, (node_l + node_r) // 2, node_r)
-            return min(c1, c2)
+            return min(c1, c2) # ==== change accordingly
 
         return _query(l, r+1, 0, 0, self.n)
 
