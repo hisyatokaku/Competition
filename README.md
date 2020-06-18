@@ -410,10 +410,51 @@ class SegmentTree():
             return min(c1, c2) # ==== change accordingly
 
         return _query(l, r+1, 0, 0, self.n)
-
-
-
 ```
+
+# FenwickTree (BIT)
+Segment Treeより定数倍高速
+```python
+class BIT():
+    def __init__(self, n):
+        self.n = self.calc_size(n) + 1
+        self.value = [0] * (self.n)
+
+    def calc_size(self, n):
+        i = 1
+        while i < n:
+            i = i << 1
+        return i
+
+    def add(self, i, x):
+        # 1-indexed
+        while i < self.n:
+            self.value[i] += x
+            i += self.lsb(i)
+
+    def cumsum(self, i):
+        # 1-indexed
+        # [1, i+1)
+        cnt = 0
+        while i > 0:
+            cnt += self.value[i]
+            i -= self.lsb(i)
+        return cnt
+
+    def lsb(self, i):
+        return i & -i
+
+    def __str__(self):
+        string = '''BIT.n: {}, BIT.value: {}
+        '''.format(self.n, self.value)
+        return string
+```
+長さ8のArrayに対して、
+[x, 0, 0, 0, 0, 0, 0, 0, 0]
+を考える。
+1, 3, 5, 7の葉と、それらの一つ上は使っていく。2, 4, 6, 8は冗長なので使わない。
+操作したいArrayのindexに対して、ツリー上の該当する累積和ブロックが勝手に対応するようになる。(binaryの性質)
+
 
 # Union-Find Tree
 実装が必要な関数は以下。
