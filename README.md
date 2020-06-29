@@ -720,7 +720,7 @@ for(int k=0; k<N; k++){
 def gcd(a, b):
   if b == 0:
     return a
-  return gcd(a, a % b)
+  return gcd(b, a % b)
 ```
 
 ## 拡張ユークリッド
