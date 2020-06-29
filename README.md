@@ -84,6 +84,10 @@ def yakusu(n):
 
 ```
 
+## 整数
+- 何回割れるのかに注目する
+- N個の数の公倍数系は二つの数で実験してみる
+
 ## nCm mod p
 参考：http://drken1215.hatenablog.com/entry/2018/06/08/210000
 
