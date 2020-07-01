@@ -87,6 +87,7 @@ def yakusu(n):
 ## 整数
 - 何回割れるのかに注目する
 - N個の数の公倍数系は二つの数で実験してみる
+- gcd(a, b) = gとして、a = ga', b = gb'と分解してみる (ペズーの等式)
 
 ## nCm mod p
 参考：http://drken1215.hatenablog.com/entry/2018/06/08/210000
