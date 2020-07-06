@@ -46,14 +46,29 @@ TL;DR: 指数nを二進数に変換し、立っているビットがあったら
 
 ```python
 def pow(x, n):
-  ans = 1
-  while(n > 0):
-    if(bin(n & 1) == bin(1)):
-      ans = ans*x
-    x = x*x
-    n = n >> 1
-  return ans
+    ans = 1
+    while(n > 0):
+        if(bin(n & 1) == bin(1)):
+            ans = ans*x
+        x = x*x
+        n = n >> 1
+    return ans
 ```
+
+```python
+def powmod(x, n):
+    ans = 1
+    while(n > 0):
+        if(bin(n & 1) == bin(1)):
+            ans = ans*x
+            ans %= mod
+        x = x*x
+        x %= mod
+        n = n >> 1
+    return ans
+```
+
+
 
 ## 素因数分解
 nを素因数分解するとき、2からsqrt(n)まで試し割りすることを繰り返す。
