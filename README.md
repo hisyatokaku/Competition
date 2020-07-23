@@ -621,26 +621,26 @@ while unvisited:
 
 ```python
 for _ in range(V-1):
-  for edge in edges:
-    fr, to, cost = edge
-    relax(fr, to, cost)
+    for edge in edges:
+      fr, to, cost = edge
+      relax(fr, to, cost)
 ```
 
 O(VlogV + ElogV)の書き方
 ```python
 def dijkstra(st):
-  d = [inf] * N
-  d[st] = 0
-  q = []
-  init_cost = 0
-  heapq.heappush(q, (init_cost, st))
-  while q:
-    cost, u = heapq.heappop(q)
-    for v_cost, v in G[u]:
-      if cost + v_cost < d[v]:
-        d[v] = cost + v_cost
-        heapq.heappush(q, (d[v], v))
-  return d
+    d = [inf] * N
+    d[st] = 0
+    q = []
+    init_cost = 0
+    heapq.heappush(q, (init_cost, st))
+    while q:
+        cost, u = heapq.heappop(q)
+        for v_cost, v in G[u]:
+            if cost + v_cost < d[v]:
+               d[v] = cost + v_cost
+            heapq.heappush(q, (d[v], v))
+    return d
 ```
 
 ノードに関するiteration1回につき、最低1つはノードへの最短距離が確定する。
