@@ -605,7 +605,7 @@ for i in range(len(edges)):
 # グラフ
 
 ## Dijkstra
-負辺なしかつ閉路なしで使える
+負辺ありかつ閉路あり、のときは使えない。
 
 ```python
 unvisited = set(V)
@@ -614,16 +614,6 @@ while unvisited:
   next_v = find_min_v_from_unvisited(d)
   unvisited.pop(next_v)
   relax(start_v, next_v, d) # 最短距離を更新する
-```
-
-## Bellman-Ford
-負の閉路あっても使える
-
-```python
-for _ in range(V-1):
-    for edge in edges:
-      fr, to, cost = edge
-      relax(fr, to, cost)
 ```
 
 O(VlogV + ElogV)の書き方
@@ -636,11 +626,22 @@ def dijkstra(st):
     heapq.heappush(q, (init_cost, st))
     while q:
         cost, u = heapq.heappop(q)
-        for v_cost, v in G[u]:
+        for v, v_cost in G[u]:
             if cost + v_cost < d[v]:
-               d[v] = cost + v_cost
-            heapq.heappush(q, (d[v], v))
+                 d[v] = cost + v_cost
+                 heapq.heappush(q, (d[v], v))
     return d
+```
+
+
+## Bellman-Ford
+負の閉路あっても使える
+
+```python
+for _ in range(V-1):
+    for edge in edges:
+      fr, to, cost = edge
+      relax(fr, to, cost)
 ```
 
 ノードに関するiteration1回につき、最低1つはノードへの最短距離が確定する。
