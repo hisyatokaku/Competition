@@ -281,13 +281,14 @@ dp[i][j][k]: 左からi桁目まで見終わっており、最大値以下であ
 
 ```
 # S: ターゲットとなる文字列。めちゃくちゃ長いのでstrにすることが多い
+dp[0][0][0] = 1 # とすることが多い
 for i in len(S):
   D = S[i] 
   for j in [0, 1]:
     for k in K:
       for d in range(j ? 9 : D): # j=1なら0から9まで好きな数字を試せるが、j=0なら0からDまで。
         newK = (...)
-        dp[i+1][j || (d < D - '0')][newK] += dp[i][j][k]
+        dp[i+1][j || (d < D - '0')][newK] += dp[i][j][k] # 右辺はdp[i][j][k]だけ
 ```  
 
 参考:[dpContest/S.cpp](https://github.com/hisyatokaku/Competition/blob/master/dpContest/S.cpp)
