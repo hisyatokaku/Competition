@@ -735,8 +735,19 @@ for(int k=0; k<N; k++){
 }
 ```
 
-# 数学系
+## 順列列挙を再帰で
+```
+def dfs(v, used):
+  for i in range(v):
+    if i in used:
+      continue
+    used[i] = 1
+    dfs(i, used)
+    used[i] = 0
+dfs(0, used)
+```
 
+# 数学系
 ## 互除法
 ```python
 def gcd(a, b):
